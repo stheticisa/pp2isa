@@ -76,3 +76,15 @@ Topics covered:
   - Working with structured JSON data (`sample-data.json`)  
 
 Goal: To practice advanced Python concepts for efficient and maintainable code, including iteration, date/time handling, mathematical operations, and JSON parsing/creation.
+Practice 5 | Topics covered due the partice
+RegEx Introduction
+RegEx Syntax and Metacharacters (., *, +, ?, ^, $, [], |, (), \)
+Special Sequences (\d, \w, \s, \D, \W, \S, \A, \Z)
+Sets and Character Classes
+Quantifiers ({n}, {n,}, {n,m})
+re.search() – Find first match
+re.findall() – Find all matches
+re.split() – Split strings
+re.sub() – Replace patterns
+re.match() – Match at beginning
+Flags (re.IGNORECASE, re.MULTILINE, etc.)
