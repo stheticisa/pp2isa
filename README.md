@@ -88,3 +88,14 @@ re.split() – Split strings
 re.sub() – Replace patterns
 re.match() – Match at beginning
 Flags (re.IGNORECASE, re.MULTILINE, etc.)
+
+Practice 06 - File Handling
+Topics covered 
+File modes: r, w, a, x
+Reading files: read(), readline(), readlines()
+Writing and appending files
+Context manager: with statement
+File and path operations: os, shutil, pathlib
+Directory management: os.mkdir(), os.makedirs(), os.listdir(), os.chdir(), os.getcwd(), os.rmdir()
+Built-in functions: len(), sum(), min(), max(), map(), filter(), reduce(), enumerate(), zip(), sorted(), type conversion functions
+
