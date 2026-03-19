@@ -8,7 +8,7 @@ with open("raw.txt", "r", encoding="utf-8") as f:
 products = re.findall(r'\d+\.\s*\n([^\n]+)', text)
 
 # --- Extract prices ---
-prices = re.findall(r'\d+\s*x\s*([\d\s]+,\d{2})', text)
+prices = re.findall(r'Стоимость\s*\n([\d\s]+,\d{2})', text)
 
 # Convert prices to float
 prices_float = [float(p.replace(" ", "").replace(",", ".")) for p in prices]
