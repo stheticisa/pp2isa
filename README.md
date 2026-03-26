@@ -99,3 +99,23 @@ File and path operations: os, shutil, pathlib
 Directory management: os.mkdir(), os.makedirs(), os.listdir(), os.chdir(), os.getcwd(), os.rmdir()
 Built-in functions: len(), sum(), min(), max(), map(), filter(), reduce(), enumerate(), zip(), sorted(), type conversion functions
 
+# Practice 7: Python & PostgreSQL — PhoneBook
+
+This practice focuses on integrating Python with PostgreSQL. You will implement a console-based PhoneBook application that supports inserting, querying, updating, deleting contacts, and importing from a CSV file.
+
+---
+
+## Topics Covered in Practice 7
+
+- PostgreSQL installation and configuration
+- Python PostgreSQL integration using `psycopg2`
+- Creating tables (`CREATE TABLE`)
+- CRUD operations in SQL:
+  - **Create:** `INSERT`
+  - **Read:** `SELECT`
+  - **Update:** `UPDATE`
+  - **Delete:** `DELETE`
+- CSV import using Python `csv` module
+- Console-based interactive application
+- Transactions and connection management
+- Error handling
