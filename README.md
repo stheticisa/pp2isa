@@ -119,3 +119,4 @@ This practice focuses on integrating Python with PostgreSQL. You will implement 
 - Console-based interactive application
 - Transactions and connection management
 - Error handling
+# Practice 8: Python & PostgreSQL — PhoneBook continuation
