@@ -1,21 +1,10 @@
-CREATE OR REPLACE FUNCTION get_contacts_by_pattern(p text)
-RETURNS TABLE(id INT, name VARCHAR, phone VARCHAR) AS $$
+CREATE OR REPLACE PROCEDURE upsert_contact(p_name TEXT, p_phone TEXT)
+LANGUAGE plpgsql AS $$
 BEGIN
-    RETURN QUERY
-    SELECT id, name, phone
-    FROM contacts
-    WHERE name ILIKE '%' || p || '%'
-       OR phone ILIKE '%' || p || '%';
+    IF EXISTS (SELECT 1 FROM contacts WHERE name = p_name) THEN
+        UPDATE contacts SET phone = p_phone WHERE name = p_name;
+    ELSE
+        INSERT INTO contacts(name, phone) VALUES (p_name, p_phone);
+    END IF;
 END;
-$$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION get_contacts_paginated(p_limit INT, p_offset INT)
-RETURNS TABLE(id INT, name VARCHAR, phone VARCHAR) AS $$
-BEGIN
-    RETURN QUERY
-    SELECT id, name, phone
-    FROM contacts
-    ORDER BY id
-    LIMIT p_limit OFFSET p_offset;
-END;
-$$ LANGUAGE plpgsql;
+$$;

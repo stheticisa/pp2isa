@@ -1,40 +1,58 @@
 from connect import connect
 
+conn = connect()
+cur = conn.cursor()
+
+print("Connected to PostgreSQL!")
+
+# ---------------- FUNCTIONS ---------------- #
+
 def search_pattern(pattern):
-    conn = connect()
-    cur = conn.cursor()
     cur.execute("SELECT * FROM get_contacts_by_pattern(%s)", (pattern,))
-    for row in cur.fetchall():
+    rows = cur.fetchall()
+    for row in rows:
         print(row)
-    cur.close()
-    conn.close()
+
 
 def upsert(name, phone):
-    conn = connect()
-    cur = conn.cursor()
     cur.execute("CALL upsert_contact(%s, %s)", (name, phone))
     conn.commit()
-    cur.close()
-    conn.close()
-    print("Upsert done!")
 
-def get_paginated(limit, offset):
-    conn = connect()
-    cur = conn.cursor()
+
+def show_paginated(limit, offset):
     cur.execute("SELECT * FROM get_contacts_paginated(%s, %s)", (limit, offset))
-    for row in cur.fetchall():
+    rows = cur.fetchall()
+    for row in rows:
         print(row)
-    cur.close()
-    conn.close()
 
-def delete_by_value(value):
-    conn = connect()
-    cur = conn.cursor()
-    cur.execute("CALL delete_contact_by_value(%s)", (value,))
+
+def delete_contact(value):
+    cur.execute("CALL delete_contact(%s)", (value,))
     conn.commit()
-    cur.close()
-    conn.close()
-    print("Deleted!")
+
+
+def bulk_insert():
+    names = input("Enter names (comma separated): ")
+    phones = input("Enter phones (comma separated): ")
+
+    name_list = [n.strip() for n in names.split(",")]
+    phone_list = [p.strip() for p in phones.split(",")]
+
+    cur.execute(
+        "SELECT * FROM bulk_insert_contacts(%s, %s)",
+        (name_list, phone_list)
+    )
+
+    rows = cur.fetchall()
+
+    print("\nInvalid data:")
+    for row in rows:
+        print(row)
+
+    conn.commit()
+
+
+# ---------------- MENU ---------------- #
 
 def menu():
     while True:
@@ -43,13 +61,14 @@ def menu():
         print("2. Upsert contact")
         print("3. Paginated view")
         print("4. Delete by name/phone")
-        print("5. Exit")
+        print("5. Bulk insert contacts")
+        print("6. Exit")
 
         choice = input("Choose: ")
 
         if choice == "1":
-            p = input("Enter pattern: ")
-            search_pattern(p)
+            pattern = input("Enter pattern: ")
+            search_pattern(pattern)
 
         elif choice == "2":
             name = input("Name: ")
@@ -57,19 +76,22 @@ def menu():
             upsert(name, phone)
 
         elif choice == "3":
-            limit = int(input("Limit: "))
-            offset = int(input("Offset: "))
-            get_paginated(limit, offset)
+            limit = int(input("Enter limit: "))
+            offset = int(input("Enter offset: "))
+            show_paginated(limit, offset)
 
         elif choice == "4":
-            val = input("Enter name or phone: ")
-            delete_by_value(val)
+            value = input("Enter name or phone: ")
+            delete_contact(value)
 
         elif choice == "5":
+            bulk_insert()
+
+        elif choice == "6":
             break
 
         else:
             print("Invalid choice")
 
-if __name__ == "__main__":
-    menu()
+
+menu()
