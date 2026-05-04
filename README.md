@@ -120,3 +120,6 @@ This practice focuses on integrating Python with PostgreSQL. You will implement 
 - Transactions and connection management
 - Error handling
 # Practice 8: Python & PostgreSQL — PhoneBook continuation
+
+Practice 9-11 nd TSIS done
+
